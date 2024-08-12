@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import Tasks from './Tasks';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTaskThunk, deleteTaskThunk, updateTaskThunk } from '../../redux/reducer/userThunks';
+import { addTaskThunk, deleteTaskThunk, updateTaskThunk } from '@redux/reducer/userThunks';
 
 const Calendar = () => {
   const dispatch = useDispatch();
@@ -84,6 +84,45 @@ const Calendar = () => {
     [data]
   );
 
+  const colorOptions = [
+    { label: 'Blue', value: '#5271D9' },
+    { label: 'Green', value: '#17D085' },
+    { label: 'Pumpkin', value: '#FF7710' },
+    { label: 'Red', value: '#FA271B' },
+    { label: 'Black', value: '#060606' },
+  ];
+
+  const colorOption = colorOptions.map((color) => ({
+    label: <span style={{ color: color.value }}>{color.label}</span>,
+    value: color.value,
+  }));
+
+  const formItem = [
+    {
+      name: 'title',
+      label: '제목',
+      rules: [{ required: true, message: '제목을 입력해주세요' }],
+      component: <Input />,
+    },
+    {
+      name: 'start',
+      label: '시작 날짜',
+      rules: [{ required: true, message: '시작 날짜를 선택해주세요' }],
+      component: <DatePicker format="YYYY-MM-DD" />,
+    },
+    {
+      name: 'end',
+      label: '종료 날짜',
+      rules: [{ required: true, message: '종료 날짜를 선택해주세요' }],
+      component: <DatePicker format="YYYY-MM-DD" />,
+    },
+    {
+      name: 'color',
+      label: '색상',
+      component: <Select style={{ width: '100%' }} options={colorOption} />,
+    },
+  ];
+
   useEffect(() => {
     if (selectDate) {
       handleDateTask(selectDate);
@@ -132,44 +171,11 @@ const Calendar = () => {
         footer={null}
       >
         <Form form={form} onFinish={handleSubmit} layout="vertical">
-          <Form.Item name="title" label="이벤트 제목" rules={[{ required: true }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="start" label="시작 날짜" rules={[{ required: true }]}>
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item name="end" label="종료 날짜" rules={[{ required: true }]}>
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-          <Form.Item name="color" label="색상" initialValue="#5271D9">
-            <Select
-              style={{
-                width: 100,
-              }}
-              options={[
-                {
-                  label: <span style={{ color: '#5271D9' }}>Blue</span>,
-                  value: '#5271D9',
-                },
-                {
-                  label: <span style={{ color: '#17D085' }}>Green</span>,
-                  value: '#17D085 ',
-                },
-                {
-                  label: <span style={{ color: '#FF7710' }}>Pumpkin</span>,
-                  value: '#FF7710 ',
-                },
-                {
-                  label: <span style={{ color: '#FA271B' }}>Red</span>,
-                  value: '#FA271B',
-                },
-                {
-                  label: <span style={{ color: '#060606' }}>Black</span>,
-                  value: '#060606',
-                },
-              ]}
-            />
-          </Form.Item>
+          {formItem.map(({ name, label, rules, component }, index) => (
+            <Form.Item key={index} name={name} label={label} rules={rules}>
+              {component}
+            </Form.Item>
+          ))}
           <Form.Item>
             <Button type="primary" htmlType="submit">
               추가

@@ -3,6 +3,7 @@ import List from './List';
 import { SmallButton } from '../Button.styles';
 
 const Card = ({ data, src, text, onCardClick }) => {
+  if (!data) return null;
   return (
     <CardContainer>
       <CardTitle>

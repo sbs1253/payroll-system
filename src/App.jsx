@@ -24,7 +24,6 @@ function App() {
       <BrowserRouter>
         <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
           <GlobalStyle />
-          {/* <ThemeButton onClick={toggleTheme} theme={theme} /> */}
           <Navbar onClick={toggleTheme} mode={mode} />
 
           <Routes>

@@ -4,13 +4,7 @@ export const useError = (status) => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (status === 'loading') {
-      setError(status === 'loading');
-    } else if (status === 'failed') {
-      setError(false);
-    } else {
-      setError(false);
-    }
+    setError(status === 'loading');
   }, [status]);
 
   return error;

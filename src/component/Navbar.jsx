@@ -8,43 +8,52 @@ const Navbar = ({ onClick, mode }) => {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.user.isLogin);
   const dispatch = useDispatch();
+
   const handleNavigate = (path) => {
     navigate(path);
   };
+
   const handleLogout = () => {
     dispatch(clearUser());
   };
+
+  const buttons = [
+    {
+      onClick: () => handleNavigate('/'),
+      icon: <ion-icon name="home-outline"></ion-icon>,
+    },
+    {
+      onClick: () => handleNavigate('/payroll-details'),
+      icon: <ion-icon name="cash-outline"></ion-icon>,
+    },
+    {
+      onClick: () => handleNavigate('/correction-request-records'),
+      icon: <ion-icon name="file-tray-full-outline"></ion-icon>,
+    },
+    {
+      onClick: isLogin ? handleLogout : () => handleNavigate('/login'),
+      icon: isLogin ? <ion-icon name="log-out-outline"></ion-icon> : <ion-icon name="log-in-outline"></ion-icon>,
+    },
+    {
+      onClick,
+      icon: mode === 'light' ? <LightModeOutlinedIcon /> : <NightlightOutlinedIcon />,
+    },
+  ];
+
   return (
     <NavbarContainer>
-      <NavbarButton onClick={() => handleNavigate('/')}>
-        <ion-icon name="home-outline"></ion-icon>
-      </NavbarButton>
-      <NavbarButton onClick={() => handleNavigate('/payroll-details')}>
-        <ion-icon name="cash-outline"></ion-icon>
-      </NavbarButton>
-      <NavbarButton onClick={() => handleNavigate('/correction-request-records')}>
-        <ion-icon name="file-tray-full-outline"></ion-icon>
-      </NavbarButton>
-
-      {isLogin ? (
-        <NavbarButton onClick={handleLogout}>
-          <ion-icon name="log-out-outline"></ion-icon>
+      {buttons.map((button, index) => (
+        <NavbarButton key={index} onClick={button.onClick}>
+          {button.icon}
         </NavbarButton>
-      ) : (
-        <NavbarButton onClick={() => handleNavigate('/login')}>
-          <ion-icon name="log-in-outline"></ion-icon>
-        </NavbarButton>
-      )}
-      <NavbarButton onClick={onClick}>
-        {mode === 'light' ? <LightModeOutlinedIcon /> : <NightlightOutlinedIcon />}
-      </NavbarButton>
+      ))}
     </NavbarContainer>
   );
 };
 
 export default Navbar;
 
-const NavbarContainer = styled.div`
+const NavbarContainer = styled.nav`
   position: fixed;
   bottom: 0;
   display: flex;

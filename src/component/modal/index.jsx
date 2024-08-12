@@ -10,6 +10,32 @@ const CorrectionRequestModal = ({ visible, onCancel, onSubmit }) => {
     });
   };
 
+  const formItem = [
+    {
+      name: 'title',
+      label: '제목',
+      rules: [{ required: true, message: '제목을 입력해주세요' }],
+      component: <Input />,
+    },
+    {
+      name: 'date',
+      label: '날짜',
+      rules: [{ required: true, message: '날짜를 선택해주세요' }],
+      component: <DatePicker style={{ width: '100%' }} />,
+    },
+    {
+      name: 'content',
+      label: '내용',
+      rules: [{ required: true, message: '내용을 입력해주세요' }],
+      component: <Input.TextArea />,
+    },
+    {
+      name: 'note',
+      label: '비고',
+      component: <Input />,
+    },
+  ];
+
   return (
     <Modal
       open={visible}
@@ -25,18 +51,11 @@ const CorrectionRequestModal = ({ visible, onCancel, onSubmit }) => {
       ]}
     >
       <Form form={form} layout="vertical">
-        <Form.Item name="title" label="제목" rules={[{ required: true, message: '제목을 입력해주세요' }]}>
-          <Input />
-        </Form.Item>
-        <Form.Item name="date" label="날짜" rules={[{ required: true, message: '날짜를 선택해주세요' }]}>
-          <DatePicker style={{ width: '100%' }} />
-        </Form.Item>
-        <Form.Item name="content" label="내용" rules={[{ required: true, message: '내용을 입력해주세요' }]}>
-          <Input.TextArea />
-        </Form.Item>
-        <Form.Item name="note" label="비고">
-          <Input />
-        </Form.Item>
+        {formItem.map(({ name, label, rules, component }, index) => (
+          <Form.Item key={index} name={name} label={label} rules={rules}>
+            {component}
+          </Form.Item>
+        ))}
       </Form>
     </Modal>
   );

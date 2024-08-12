@@ -12,10 +12,13 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 const CorrectionRequestRecords = () => {
   const dispatch = useDispatch();
-  const profileData = useSelector((state) => state.user.data.profileData);
-  const correctionRequests = useSelector((state) => state.user.data.correctionRequests);
-  const userStatus = useSelector((state) => state.user.status);
-  const showSuccessBox = useSelector((state) => state.user.showSuccessBox);
+  const { profileData, correctionRequests, userStatus, showSuccessBox } = useSelector((state) => ({
+    profileData: state.user.data.profileData,
+    correctionRequests: state.user.data.correctionRequests,
+    userStatus: state.user.status,
+    showSuccessBox: state.user.showSuccessBox,
+  }));
+
   const [showSuccess, setShowSuccess] = useState(false);
   const loading = useLoading(userStatus);
   const iconSrc =

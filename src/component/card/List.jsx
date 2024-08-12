@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 const List = ({ items }) => {
+  if (!items) return null;
   return (
     <ListContainer>
-      {items?.map(({ label, value }, index) => (
+      {items.map(({ label, value }, index) => (
         <ListItem key={index}>
-          <Label>{label || ''}</Label>
-          <Value>{value || ''}</Value>
+          <Label>{label}</Label>
+          <Value>{value}</Value>
         </ListItem>
       ))}
     </ListContainer>
@@ -18,7 +19,7 @@ const ListContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   gap: 40px;
-  max-width: 100px;
+  width: 100%;
 `;
 
 const ListItem = styled.div`
@@ -26,10 +27,10 @@ const ListItem = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 5px;
-  min-width: 50px;
 `;
 
 const Label = styled.span`
+  min-width: 40px;
   color: ${(props) => props.theme.colors.text.body};
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-caption);
