@@ -1,15 +1,15 @@
 import { styled } from 'styled-components';
 import { useForm } from 'react-hook-form';
-import { fetchLoginThunk } from '../../redux/reducer/userThunks';
-import { LargeButton, SmallButton } from '../../component/Button.styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useLoading } from '../../hooks/useLoading';
-import { useError } from '../../hooks/useError';
-import Loading from '../../component/Loading';
-import { ErrorBox } from '../../component/AlertBox';
-import { setShowErrorBox } from '../../redux/reducer/userSlice';
+import { useLoading } from '@hooks/useLoading';
+import { fetchLoginThunk } from '@redux/reducer/userThunks';
+import { setShowErrorBox } from '@redux/reducer/userSlice';
+import { LargeButton, SmallButton } from '@components/Button.styles';
+
+import Loading from '@components/Loading';
+import { ErrorBox } from '@components/AlertBox';
 
 const Login = () => {
   const dispatch = useDispatch();

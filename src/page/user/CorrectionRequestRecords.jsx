@@ -1,13 +1,13 @@
-import Profile from '../../component/profile';
+import Profile from '@components/profile';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import Card from '../../component/card';
+import Card from '@components/card';
 import { useDispatch } from 'react-redux';
-import { deleteCorrectionRequestThunk } from '../../redux/reducer/userThunks';
-import { useLoading } from '../../hooks/useLoading';
-import Loading from '../../component/Loading';
-import { SuccessBox } from '../../component/AlertBox';
-import { setShowSuccessBox } from '../../redux/reducer/userSlice';
+import { deleteCorrectionRequestThunk } from '@redux/reducer/userThunks';
+import { useLoading } from '@hooks/useLoading';
+import Loading from '@components/Loading';
+import { SuccessBox } from '@components/AlertBox';
+import { setShowSuccessBox } from '@redux/reducer/userSlice';
 import { useState } from 'react';
 import { useEffect } from 'react';
 const CorrectionRequestRecords = () => {

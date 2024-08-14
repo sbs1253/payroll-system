@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-import Profile from '../../component/profile';
+import Profile from '@components/profile';
 import { useSelector } from 'react-redux';
-import Calendar from '../../component/calendar/Calendar';
-import { useLoading } from '../../hooks/useLoading';
-import Loading from '../../component/Loading';
+import Calendar from '@components/calendar/Calendar';
+import { useLoading } from '@hooks/useLoading';
+import Loading from '@components/Loading';
 
 const Home = () => {
   const profileData = useSelector((state) => {

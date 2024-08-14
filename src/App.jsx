@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import Home from './page/user/Home';
 import Login from './page/user/Login';
-import Navbar from './component/Navbar';
+import Navbar from '@components/Navbar';
 import PayrollDetails from './page/user/PayrollDetails';
 import CorrectionRequestRecords from './page/user/CorrectionRequestRecords';
 import Layout from './page/user/Layout';

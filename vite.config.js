@@ -8,6 +8,7 @@ export default defineConfig({
     alias: {
       '@components': path.resolve(__dirname, 'src/components'),
       '@redux': path.resolve(__dirname, 'src/redux'),
+      '@hooks': path.resolve(__dirname, 'src/hooks'),
     },
   },
 });

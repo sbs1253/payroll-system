@@ -1,16 +1,16 @@
 import styled from 'styled-components';
-import Profile from '../../component/profile';
-import Card from '../../component/card';
-import { useState, useEffect } from 'react';
-import { useLoading } from '../../hooks/useLoading';
-import Loading from '../../component/Loading';
+import Profile from '@components/profile';
+import Card from '@components/card';
+import { useEffect } from 'react';
+import { useLoading } from '@hooks/useLoading';
+import Loading from '@components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
-import CorrectionRequestModal from '../../component/modal';
-import { addCorrectionRequestThunk } from '../../redux/reducer/userThunks';
-import { SmallButton } from '../../component/Button.styles';
-import { SuccessBox } from '../../component/AlertBox';
-import { setShowSuccessBox } from '../../redux/reducer/userSlice';
-import { useToggle } from '../../hooks/useToggle';
+import CorrectionRequestModal from '@components/modal';
+import { addCorrectionRequestThunk } from '@redux/reducer/userThunks';
+import { SmallButton } from '@components/Button.styles';
+import { SuccessBox } from '@components/AlertBox';
+import { setShowSuccessBox } from '@redux/reducer/userSlice';
+import { useToggle } from '@hooks/useToggle';
 
 const PayrollDetails = () => {
   const dispatch = useDispatch();

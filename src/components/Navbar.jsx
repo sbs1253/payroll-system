@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearUser } from '../redux/reducer/userSlice';
+import { clearUser } from '@redux/reducer/userSlice';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import NightlightOutlinedIcon from '@mui/icons-material/NightlightOutlined';
 const Navbar = ({ onClick, mode }) => {
