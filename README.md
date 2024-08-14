@@ -6,6 +6,8 @@
 <!--프로젝트 대문 이미지-->
 ![Project Title](https://github.com/user-attachments/assets/e198b681-7bd5-435f-9bce-15eb4e42eee8)
 
+### [프로젝트 사이트](https://toy-project-2.web.app/)
+#### ID: `test1@gmail.com` PW: `123123`
 <!--목차-->
 # 목차
 - [📚 프로젝트 설명](#-프로젝트-설명)
