@@ -16,17 +16,29 @@ let initialState = {
   showSuccessBox: false,
 };
 
+const handlePending = (state) => {
+  state.status = 'loading';
+};
+
+const handleFulfilled = (state, action, key) => {
+  state.status = 'succeeded';
+  if (key) {
+    state.data[key] = action.payload;
+  } else {
+    state.data = action.payload;
+  }
+};
+
+const handleRejected = (state, action) => {
+  state.status = 'failed';
+  state.error = action.payload;
+};
+
 const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    clearUser: (state) => {
-      state.data = {};
-      state.status = '';
-      state.isLogin = false;
-      state.error = null;
-      state.showSuccessBox = false;
-    },
+    clearUser: () => initialState,
     setShowSuccessBox: (state, action) => {
       state.showSuccessBox = action.payload;
     },
@@ -36,76 +48,38 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchLoginThunk.pending, (state) => {
-        state.status = 'loading';
-      })
+      .addCase(fetchLoginThunk.pending, handlePending)
       .addCase(fetchLoginThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        handleFulfilled(state, action);
         state.isLogin = true;
-        state.data = action.payload;
       })
-      .addCase(fetchLoginThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        console.log(action.payload);
-        state.error = action.payload;
-      })
-      .addCase(addCorrectionRequestThunk.pending, (state) => {
-        state.status = 'loading';
-      })
+      .addCase(fetchLoginThunk.rejected, handleRejected)
+
+      .addCase(addCorrectionRequestThunk.pending, handlePending)
       .addCase(addCorrectionRequestThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data.correctionRequests = action.payload;
+        handleFulfilled(state, action, 'correctionRequests');
         state.showSuccessBox = true;
       })
-      .addCase(addCorrectionRequestThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      })
-      .addCase(deleteCorrectionRequestThunk.pending, (state) => {
-        state.status = 'loading';
-      })
+      .addCase(addCorrectionRequestThunk.rejected, handleRejected)
+
+      .addCase(deleteCorrectionRequestThunk.pending, handlePending)
       .addCase(deleteCorrectionRequestThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data.correctionRequests = action.payload;
+        handleFulfilled(state, action, 'correctionRequests');
         state.showSuccessBox = true;
       })
-      .addCase(deleteCorrectionRequestThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      })
-      .addCase(addTaskThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(addTaskThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data.tasks = action.payload;
-      })
-      .addCase(addTaskThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      })
-      .addCase(deleteTaskThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(deleteTaskThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data.tasks = action.payload;
-      })
-      .addCase(deleteTaskThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      })
-      .addCase(updateTaskThunk.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(updateTaskThunk.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.data.tasks = action.payload;
-      })
-      .addCase(updateTaskThunk.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.payload;
-      });
+      .addCase(deleteCorrectionRequestThunk.rejected, handleRejected)
+
+      .addCase(addTaskThunk.pending, handlePending)
+      .addCase(addTaskThunk.fulfilled, (state, action) => handleFulfilled(state, action, 'tasks'))
+      .addCase(addTaskThunk.rejected, handleRejected)
+
+      .addCase(deleteTaskThunk.pending, handlePending)
+      .addCase(deleteTaskThunk.fulfilled, (state, action) => handleFulfilled(state, action, 'tasks'))
+      .addCase(deleteTaskThunk.rejected, handleRejected)
+
+      .addCase(updateTaskThunk.pending, handlePending)
+      .addCase(updateTaskThunk.fulfilled, (state, action) => handleFulfilled(state, action, 'tasks'))
+      .addCase(updateTaskThunk.rejected, handleRejected);
   },
 });
 export const { clearUser, setShowSuccessBox, setShowErrorBox } = userSlice.actions;

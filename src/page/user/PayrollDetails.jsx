@@ -10,6 +10,8 @@ import { addCorrectionRequestThunk } from '../../redux/reducer/userThunks';
 import { SmallButton } from '../../component/Button.styles';
 import { SuccessBox } from '../../component/AlertBox';
 import { setShowSuccessBox } from '../../redux/reducer/userSlice';
+import { useToggle } from '../../hooks/useToggle';
+
 const PayrollDetails = () => {
   const dispatch = useDispatch();
   const profileData = useSelector((state) => state.user.data.profileData);
@@ -18,47 +20,50 @@ const PayrollDetails = () => {
   const userError = useSelector((state) => state.user.error);
   const showSuccessBox = useSelector((state) => state.user.showSuccessBox);
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [modalVisible, setModalVisible] = useToggle(false);
+  const [showSuccess, setShowSuccess] = useToggle(false);
   const loading = useLoading(userStatus);
 
   const showModal = () => {
-    setModalVisible(true);
+    setModalVisible();
   };
 
   const handleCancel = () => {
-    setModalVisible(false);
+    setModalVisible();
   };
 
-  const handleSubmit = (values) => {
-    const newRequest = {
-      title: values.title,
+  const newRequest = ({ title, date, content, note }) => {
+    return {
+      title,
       manager: '담당자: 송병훈',
       items: [
-        { label: '날짜', value: values.date.format('YY.MM.DD') },
-        { label: '내용', value: values.content },
-        { label: '비고', value: values.note || '' },
+        { label: '날짜', value: date.format('YY.MM.DD') },
+        { label: '내용', value: content },
+        { label: '비고', value: note || '' },
         { label: '상태', value: '처리중' },
       ],
     };
-    dispatch(addCorrectionRequestThunk(newRequest));
-    setModalVisible(false);
+  };
+
+  const handleSubmit = (values) => {
+    dispatch(addCorrectionRequestThunk(newRequest(values)));
+    setModalVisible();
   };
 
   const handleSuccess = () => {
-    setShowSuccess(false);
+    setShowSuccess();
     dispatch(setShowSuccessBox(false));
   };
 
   useEffect(() => {
     if (showSuccessBox) {
-      setShowSuccess(true);
+      setShowSuccess();
       const timer = setTimeout(() => {
         handleSuccess();
       }, 3000);
       return () => {
         clearTimeout(timer);
-        handleSuccess();
+        dispatch(setShowSuccessBox(false));
       };
     }
   }, [showSuccessBox, dispatch]);

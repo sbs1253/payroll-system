@@ -4,6 +4,9 @@ const ButtonBase = styled.button`
   position: relative;
   border: none;
   cursor: pointer;
+  &:disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export const LargeButton = styled(ButtonBase)`

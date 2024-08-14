@@ -18,9 +18,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const userStatus = useSelector((state) => state.user.status);
-  const userIsLogin = useSelector((state) => state.user.isLogin);
-  const userError = useSelector((state) => state.user.error);
+
+  const { userStatus, userIsLogin, userError } = useSelector((state) => ({
+    userStatus: state.user.status,
+    userIsLogin: state.user.isLogin,
+    userError: state.user.error,
+  }));
 
   const loading = useLoading(userStatus);
   const [visible, setVisible] = useState(false);
@@ -73,11 +76,16 @@ const Login = () => {
             type="password"
             {...register('password', { required: true, minLength: 6 })}
           />
-          {errors.password && errors.password.type === 'required' && <ErrorText>필수 입력입니다.</ErrorText>}
-          {errors.password && errors.password.type === 'minLength' && <ErrorText>6자 이상으로 작성해주세요.</ErrorText>}
+          {errors.password && (
+            <ErrorText>
+              {errors.password.type === 'required' ? '필수 입력입니다.' : '6자 이상으로 작성해주세요.'}
+            </ErrorText>
+          )}
         </LoginInputBox>
 
-        <LargeButton type="submit">Submit</LargeButton>
+        <LargeButton type="submit" disabled={loading}>
+          Submit
+        </LargeButton>
         <SignupBox>
           <p>Don't have any account?</p>
           <SmallButton onClick={(e) => e.preventDefault()}>Sign up</SmallButton>
