@@ -19,11 +19,9 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { userStatus, userIsLogin, userError } = useSelector((state) => ({
-    userStatus: state.user.status,
-    userIsLogin: state.user.isLogin,
-    userError: state.user.error,
-  }));
+  const userStatus = useSelector((state) => state.user.status);
+  const userIsLogin = useSelector((state) => state.user.isLogin);
+  const userError = useSelector((state) => state.user.error);
 
   const loading = useLoading(userStatus);
   const [visible, setVisible] = useState(false);

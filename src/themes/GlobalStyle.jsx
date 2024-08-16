@@ -48,7 +48,7 @@ export const GlobalStyle = styled.createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: ${(props) => props.theme.colors.background[1]};
+    background-color: ${(props) => props.theme.colors.background[2]};
     color: ${(props) => props.theme.colors.text.body};
     font-family: 'Pretendard-Regular' !important;
     overflow: hidden;
@@ -57,6 +57,9 @@ export const GlobalStyle = styled.createGlobalStyle`
   & #root {
     width: 100%;
     height: 100%;
+    max-width: 500px;
+    margin: auto;
+    background-color: ${(props) => props.theme.colors.background[1]};
   }
 
   *,

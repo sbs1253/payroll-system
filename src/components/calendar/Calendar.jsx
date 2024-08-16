@@ -192,7 +192,7 @@ export default Calendar;
 
 const CalendarContainer = styled.div`
   margin: 0 auto;
-  width: 100vw;
+  max-width: 500px;
   height: 80vh;
   margin-top: 5px;
   background-color: ${(props) => props.theme.colors.background[1]};
@@ -205,7 +205,7 @@ const CalendarContainer = styled.div`
     }
     &::after {
       content: '';
-      width: 100vw;
+      width: 100%;
       height: 1px;
       background-color: ${(props) => props.theme.colors.text.title};
     }

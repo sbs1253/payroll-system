@@ -4,6 +4,8 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './themes/themes';
 import { GlobalStyle } from './themes/GlobalStyle';
 import { Provider } from 'react-redux';
+import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
 import store from './redux/store';
 import Home from './page/user/Home';
 import Login from './page/user/Login';
@@ -21,21 +23,23 @@ function App() {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
-          <GlobalStyle />
-          <Navbar onClick={toggleTheme} mode={mode} />
+      <PersistGate loading={null} persistor={persistStore(store)}>
+        <BrowserRouter>
+          <ThemeProvider theme={mode === 'light' ? lightTheme : darkTheme}>
+            <GlobalStyle />
+            <Navbar onClick={toggleTheme} mode={mode} />
 
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="payroll-details" element={<PayrollDetails />} />
-              <Route path="correction-request-records" element={<CorrectionRequestRecords />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-          </Routes>
-        </ThemeProvider>
-      </BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                <Route index element={<Home />} />
+                <Route path="payroll-details" element={<PayrollDetails />} />
+                <Route path="correction-request-records" element={<CorrectionRequestRecords />} />
+              </Route>
+              <Route path="/login" element={<Login />} />
+            </Routes>
+          </ThemeProvider>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }

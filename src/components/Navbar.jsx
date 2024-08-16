@@ -59,7 +59,7 @@ const NavbarContainer = styled.nav`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  min-width: 350px;
+  max-width: 500px;
   height: 40px;
   background-color: ${(props) => props.theme.colors.text.title};
   overflow: hidden;
