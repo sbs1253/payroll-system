@@ -14,7 +14,7 @@ export const LargeButton = styled(ButtonBase)`
   height: 40px;
   background-color: ${(props) => props.$bgColor || props.theme.colors.primary.normal};
   color: ${(props) => props.$textColor || props.theme.colors.text.title};
-  font-size: 0.8em;
+  font-size: var(--font-size-body-regular);
   font-weight: 500;
   letter-spacing: 1px;
   border-radius: 30px;
